@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pranav Payroll Services vendor comparison and client proposal generator.">
+  <title>Pranav Payroll Services | Payroll Vendor Advisor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar no-print">
+    <div class="brand">
+      <div class="brand-mark">P</div>
+      <div><strong>PRANAV</strong><span>PAYROLL SERVICES</span></div>
+    </div>
+    <div class="topbar-right"><span class="demo-pill">DEMO ENVIRONMENT</span><span class="secure-label">Vendor pricing workspace</span></div>
+  </header>
+
+  <main class="container">
+    <section class="hero no-print">
+      <div>
+        <p class="eyebrow">SALES ENABLEMENT · VENDOR PRICING</p>
+        <h1>Payroll Vendor Advisor</h1>
+        <p class="hero-copy">Compare software costs, configure payroll services, and prepare a client-ready proposal in minutes.</p>
+      </div>
+      <div class="hero-stat"><span>VENDORS</span><strong>09</strong><small>Available to compare</small></div>
+    </section>
+
+    <section class="panel no-print">
+      <div class="section-heading"><div><span class="step">01</span><h2>Client details</h2></div><p>Enter the client profile and payroll schedule.</p></div>
+      <div class="form-grid">
+        <label class="field span-2">Client company name<input id="clientName" type="text" placeholder="e.g. Acme Manufacturing"></label>
+        <label class="field">Contact person<input id="contactName" type="text" placeholder="Contact name"></label>
+        <label class="field">Email address<input id="clientEmail" type="email" placeholder="name@company.com"></label>
+        <label class="field">Number of employees<input id="employees" type="number" min="1" step="1" value="25"></label>
+        <label class="field">Payroll frequency<select id="frequency">
+          <option value="weekly">Weekly · 52 runs/year</option>
+          <option value="biweekly" selected>Biweekly · 26 runs/year</option>
+          <option value="semimonthly">Semimonthly · 24 runs/year</option>
+          <option value="monthly">Monthly · 12 runs/year</option>
+          <option value="quarterly">Quarterly · 4 runs/year</option>
+        </select></label>
+      </div>
+      <div class="service-options">
+        <label class="toggle-card"><input id="timekeeping" type="checkbox" checked><span class="toggle-ui"></span><span><strong>Include timekeeping</strong><small>Monthly fee per employee</small></span></label>
+        <label class="toggle-card"><input id="delivery" type="checkbox" checked><span class="toggle-ui"></span><span><strong>Include delivery</strong><small>Fee for each payroll run</small></span></label>
+      </div>
+    </section>
+
+    <section class="panel no-print">
+      <div class="section-heading"><div><span class="step">02</span><h2>Compare payroll vendors</h2></div><p>All rates are treated as vendor costs in USD.</p></div>
+      <div class="table-wrap">
+        <table class="vendor-table">
+          <thead><tr><th>Vendor</th><th>Base / month</th><th>Per employee / month</th><th>Timekeeping / employee / month</th><th>Delivery / run</th><th>Estimated monthly cost</th><th></th></tr></thead>
+          <tbody id="vendorRows"></tbody>
+        </table>
+      </div>
+      <div class="table-note"><span class="dot"></span> Estimates update automatically when client details or service selections change. Select a vendor to prepare its proposal.</div>
+    </section>
+
+    <section class="panel no-print">
+      <div class="section-heading"><div><span class="step">03</span><h2>Selected vendor pricing</h2></div><p>1.5% gross profit margin applied to client price.</p></div>
+      <div id="emptyState" class="empty-state">Select a vendor above to see the detailed client pricing.</div>
+      <div id="pricingArea" hidden>
+        <div class="selected-vendor"><div><span class="eyebrow">SELECTED SOFTWARE</span><h3 id="selectedVendorName">—</h3><p id="selectedVendorMeta">—</p></div><span class="selected-tag">Selected option</span></div>
+        <div class="metrics-grid">
+          <div class="metric"><span>Vendor cost / month</span><strong id="monthlyCost">$0.00</strong></div>
+          <div class="metric featured"><span>Client price / month</span><strong id="clientMonthly">$0.00</strong><small>Includes 1.5% gross margin</small></div>
+          <div class="metric"><span>Client price / year</span><strong id="clientAnnual">$0.00</strong></div>
+          <div class="metric"><span>Estimated gross profit / year</span><strong id="annualProfit">$0.00</strong></div>
+        </div>
+        <div class="breakdown-wrap"><h4>Monthly pricing breakdown</h4><div id="breakdown"></div></div>
+        <div class="action-row">
+          <button class="button button-primary" id="printBtn" type="button"> <span>↓</span> Print / Save proposal as PDF</button>
+          <button class="button button-secondary" id="clearBtn" type="button">Clear selection</button>
+          <p>In the print dialog, choose <strong>Save as PDF</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="proposal" class="proposal print-only" aria-label="Client proposal">
+      <div class="proposal-header">
+        <div class="brand dark"><div class="brand-mark">P</div><div><strong>PRANAV</strong><span>PAYROLL SERVICES</span></div></div>
+        <div class="proposal-label">PAYROLL SERVICES PROPOSAL</div>
+      </div>
+      <div class="proposal-title"><p class="eyebrow">PREPARED FOR</p><h1 id="pClientName">Client Company</h1><p id="pContact"></p></div>
+      <div class="proposal-meta"><div><span>PROPOSAL DATE</span><strong id="pDate"></strong></div><div><span>PAYROLL FREQUENCY</span><strong id="pFrequency"></strong></div><div><span>EMPLOYEE COUNT</span><strong id="pEmployees"></strong></div></div>
+      <h2>Recommended payroll software</h2>
+      <div class="proposal-vendor"><h3 id="pVendor"></h3><p id="pServices"></p></div>
+      <h2>Pricing summary</h2>
+      <div id="pBreakdown" class="proposal-breakdown"></div>
+      <div class="proposal-total"><div><span>Estimated monthly client price</span><strong id="pMonthly"></strong></div><div><span>Estimated annual client price</span><strong id="pAnnual"></strong></div></div>
+      <p class="proposal-footnote">Pricing is an estimate based on the client details and vendor rates entered for this demonstration. Final pricing is subject to confirmation of vendor terms, taxes, implementation fees, and any additional services. This proposal is valid for 30 days from the proposal date.</p>
+      <div class="proposal-signoff"><div>Prepared by<br><strong>Pranav Payroll Services</strong></div><div>Client acceptance<br><strong>____________________________</strong></div></div>
+      <footer>PRANAV PAYROLL SERVICES · CONFIDENTIAL CLIENT PROPOSAL</footer>
+    </section>
+    <footer class="app-footer no-print">© <span id="year"></span> Pranav Payroll Services · Internal sales estimation tool · Demo pricing only</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
